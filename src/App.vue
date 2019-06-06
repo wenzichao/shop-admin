@@ -1,28 +1,26 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <!-- <Index></Index> -->
+    <router-link to='/login'>登录</router-link>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Index from './components/index.vue'
 
 export default {
-  name: 'app',
-  components: {
-    HelloWorld
+  mounted(){
+  //   this.$axios({
+  //     url:'https://api.github.com/users',
+  //     method:'GET',
+  // }).then(res => {
+  //   console.log(res);
+  // })
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
