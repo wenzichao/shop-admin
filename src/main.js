@@ -4,11 +4,13 @@ import VueRouter from 'vue-router'
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+
 // 引入异步请求模块
 import axios from 'axios'
 // 引入页面
-import Login from './page/login.vue'
-import Index from './components/index.vue'
+import Login from './page/Login.vue'
+import Admin from './page/Admin.vue'
+
 //注册饿了么UI
 Vue.use(ElementUI)
 // 注册路由模块
@@ -19,7 +21,7 @@ Vue.config.productionTip = false
 Vue.prototype.$axios = axios;
 
 const routes = [
-  {path:'/',component:Index},
+  {path:'/',component:Admin},
   {path:'/login',component:Login}
 ];
 

@@ -1,23 +1,23 @@
 <template>
-  <div class="loginStyle">
-      <h4>登录</h4>
-      <el-form
-    :model="ruleForm"
-    status-icon
+  <div class="form-wrapper">
+    <el-form
+    :model="form"
     :rules="rules"
-    ref="ruleForm"
-    label-width="100px"
-    class="demo-ruleForm"
+    ref="form"
+    label-width="80px"
+    class="form"
   >
-    <el-form-item label="账号" prop="pass">
-      <el-input type="text" v-model="ruleForm.pass" autocomplete="off"></el-input>
+    <p>登录</p>
+    <el-form-item label="账号" prop="username">
+      <el-input v-model="form.username"></el-input>
     </el-form-item>
-    <el-form-item label="密码" prop="checkPass">
-      <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
+    <el-form-item label="密码" prop="password">
+      <el-input type="password" v-model="form.password"></el-input>
     </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-      <el-button @click="resetForm('ruleForm')">重置</el-button>
+
+    <el-form-item class="btn">
+      <el-button type="primary" @click="onSubmit">登录</el-button>
+      <el-button @click="resetForm('form')">重置</el-button>
     </el-form-item>
   </el-form>
   </div>
@@ -25,69 +25,77 @@
 
 <script>
 export default {
-    data() {
-      var validatePass = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请输入账号'));
-        } else {
-          if (this.ruleForm.checkPass !== '') {
-            this.$refs.ruleForm.validateField('checkPass');
-          }
-          callback();
-        }
-      };
-      var validatePass2 = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请输入密码'));
-        } else {
-          if (this.ruleForm.checkPass !== '') {
-            this.$refs.ruleForm.validateField('checkPass');
-          }
-          callback();
-        }
-      };
-      return {
-        ruleForm: {
-          pass: '',
-          checkPass: '',
-          age: ''
-        },
-        rules: {
-          pass: [
-            { validator: validatePass, trigger: 'blur' }
-          ],
-          checkPass: [
-            { validator: validatePass2, trigger: 'blur' }
-          ]
-        }
-      };
-    },
-    methods: {
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
+  data() {
+    return {
+      form: {
+        username: "",
+        password:""
       },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
+      rules: {
+        username: [
+          { required: true, message: "请输入账号", trigger: "blur" },
+        ],
+        password: [
+          { required: true, message: "请输入密码", trigger: "blur" },
+        ],
       }
+    };
+  },
+  methods: {
+    onSubmit(){
+      const data = {
+        uname:this.form.username,
+        upwd:this.form.password
+      }
+      this.$refs.form.validate((valid) => {
+          if (valid) {
+            this.$axios({
+              url:'http://localhost:8899/admin/account/login',
+              method:'POST',
+              data,
+              withCredentials: true
+            }).then(res=>{
+              // console.log(res.data);
+              const {message,status} = res.data
+              if(status==0){
+                this.$router.push('/?realname='+message.realname)
+              }
+              if(status==1){
+                this.$message.error(message);
+              }
+            })
+          } 
+        });
+    },
+    resetForm(form) {
+      this.$refs[form].resetFields();
     }
   }
+};
 </script>
 
-<style>
-    h4{
-        text-align: center;
-        color: #409EFF;
-        font-weight: 700;
-    }
-    .loginStyle{
-        width: 500px;
-        margin: 150px auto;
-    }
+<style scoped>
+  .form-wrapper{
+    width: 100%;
+    position: absolute;
+    top:0;
+    bottom:0;
+    /* background-color: #ccc; */
+  }
+  .form{
+    width: 500px;
+    position: absolute;
+    left: 50%;
+    margin-left: -250px;
+    top: 50%;
+    margin-top: -116px;
+  }
+  .form p{
+    text-align: center;
+    margin-bottom: 20px;
+    color: #409EFF;
+  }
+  .btn{
+    margin-left: 112px;
+  }
 </style>
