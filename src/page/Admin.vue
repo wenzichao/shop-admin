@@ -7,7 +7,7 @@
         <el-header><Header @change='handelChangeShow' :realname='realname'/></el-header>
         <el-main>
             <Crunbs></Crunbs>    
-            Main
+            <router-view></router-view>
         </el-main>
       </el-container>
     </el-container>
@@ -51,6 +51,7 @@ export default {
   color: #333;
   text-align: center;
   line-height: 60px;
+
 }
 
 .el-aside {
@@ -62,9 +63,6 @@ export default {
 
 .el-main {
   background-color: #e9eef3;
-  color: #333;
-  text-align: center;
-  line-height: 160px;
 }
 
 body > div > .el-container {

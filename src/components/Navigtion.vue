@@ -2,7 +2,7 @@
   <div>
     <div class="navTop"></div>
     <el-menu
-      default-active="2"
+      default-active="1-1"
       class="el-menu-vertical-demo"
       background-color="#041f38"
       text-color="#999"
@@ -15,8 +15,12 @@
           <span>购物商城</span>
         </template>
         <el-menu-item-group>
-          <el-menu-item index="1-1">商品管理</el-menu-item>
-          <el-menu-item index="1-2">栏目管理</el-menu-item>
+          <el-menu-item index="1-1">
+            <router-link to='/admin/goods-list'>商品管理</router-link>
+          </el-menu-item>
+          <el-menu-item index="1-2">
+            <router-link to='/admin/category-list'>栏目管理</router-link>
+          </el-menu-item>
         </el-menu-item-group>
       </el-submenu>
 

@@ -20,7 +20,8 @@ export default {
     list-style: none;
   }
   a{
-    color: #000;
+    color: inherit;
+    display: block;
     text-decoration: none;
   }
 </style>

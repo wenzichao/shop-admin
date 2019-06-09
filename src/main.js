@@ -10,6 +10,8 @@ import axios from 'axios'
 // 引入页面
 import Login from './page/Login.vue'
 import Admin from './page/Admin.vue'
+import GoodsList from './page/GoodsList.vue'
+import CategoryList from './page/CategoryList.vue'
 
 //注册饿了么UI
 Vue.use(ElementUI)
@@ -21,8 +23,12 @@ Vue.config.productionTip = false
 Vue.prototype.$axios = axios;
 
 const routes = [
-  {path:'/',component:Admin},
-  {path:'/login',component:Login}
+  {path:'/',redirect:'/admin/goods-list',meta:'首页'},
+  {path:'/login',component:Login,meta:'登录'},
+  {path:'/admin',component:Admin,meta:'后台管理',children:[
+    {path:'goods-list',component:GoodsList,meta:'商品管理'},
+    {path:'category-list',component:CategoryList,meta:'栏目管理'}
+  ]}
 ];
 
 const router = new VueRouter({ routes });
