@@ -19,10 +19,9 @@
       :data="tableData"
       tooltip-effect="dark"
       style="width: 100%;margin-bottom:10px;"
-      @selection-change="handleSelectionChange"
-    >
+      @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column label="标题" width="400">
+      <el-table-column label="标题" width="450">
         <template slot-scope="scope">
           <el-row type="flex" align="middle">
             <!-- <img :src="scope.row.imgurl" class="goods-img"/> -->
@@ -148,10 +147,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .btn {
   margin-bottom: 10px;
-  margin-top: 0;
 }
 .inputstyle {
   width: 300px;
