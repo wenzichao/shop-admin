@@ -14,6 +14,8 @@ import GoodsList from './page/GoodsList.vue'
 import CategoryList from './page/CategoryList.vue'
 import Member from './page/Member.vue'
 import OrderList from './page/OrderList.vue'
+import GoodsAdd from './page/GoodsAdd.vue'
+import GoodsEdit from './page/GoodsEdit.vue'
 
 //注册饿了么UI
 Vue.use(ElementUI)
@@ -30,8 +32,11 @@ const routes = [
   {path:'/admin',component:Admin,meta:'后台管理',children:[
     {path:'goods-list',component:GoodsList,meta:'商品管理'},
     {path:'category-list',component:CategoryList,meta:'栏目管理'},
+    {path:'goods-add', component:GoodsAdd,meta:'添加商品'},
+    {path:'goods-edit/:id',component:GoodsEdit,meta:'编辑商品'},
     {path:'member',component:Member,meta:'会员列表'},
     {path:'orderlist',component:OrderList,meta:'订单管理'}
+    
   ]}
 ];
 

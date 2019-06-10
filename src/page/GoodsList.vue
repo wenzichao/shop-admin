@@ -3,7 +3,7 @@
       <!-- 新增和批量删除按钮 -->
     <el-row type="flex" justify="space-between" class="btn">
       <div>
-        <el-button type="primary" plain>添加</el-button>
+        <el-button type="primary" plain @click="handelAddList">添加</el-button>
         <el-button type="danger" plain @click="handelDeletMove">删除</el-button>
       </div>
       <!-- 搜索查询 -->
@@ -24,7 +24,7 @@
       <el-table-column label="标题" width="450">
         <template slot-scope="scope">
           <el-row type="flex" align="middle">
-            <!-- <img :src="scope.row.imgurl" class="goods-img"/> -->
+            <img :src="scope.row.img_url" class="goods-img"/>
             <div>{{ scope.row.title }}</div>
           </el-row>
         </template>
@@ -76,9 +76,12 @@ export default {
         method: "GET"
       }).then(res => {
         const data = res.data;
-        // console.log(data);
+        data.message.forEach(v => {
+          v.img_url = 'http://127.0.0.1:8899/'+ v.img_url
+        });
         this.tableData = data.message;
-        this.searchValue = data.totalcount
+        this.searchValue = data.totalcount;
+        console.log(data);
         // console.log(this.searchValue);
       });
     },
@@ -113,7 +116,9 @@ export default {
     },
     // 点击编辑时触发的事件
     handleEdit(index, row) {
-      console.log(index, row);
+      // console.log(index);
+      const id = index.id
+      this.$router.push('/admin/goods-edit/'+id)
     },
     // 点击删除按钮时触发的事件
     handleDelete(row) {
@@ -141,7 +146,10 @@ export default {
     handleCurrentChange(val) {
       this.pageIndex = val
       this.getGoodsList()
-
+    },
+    handelAddList(){
+      this.$router.push("/admin/goods-add")
+      // this.$router.push('/admin/goods-add')
     }
   }
 };
@@ -160,4 +168,11 @@ export default {
 .input-with-select .el-input-group__prepend {
   background-color: #fff;
 }
+.goods-img{
+      width:60px;
+      height:60px;
+      /*表示元素压缩的倍数，如果是0，表示不会被挤压*/
+      flex-shrink: 0;
+      margin-right:5px;
+    }
 </style>
