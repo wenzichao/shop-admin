@@ -81,7 +81,7 @@ export default {
         });
         this.tableData = data.message;
         this.searchValue = data.totalcount;
-        console.log(data);
+        // console.log(data);
         // console.log(this.searchValue);
       });
     },

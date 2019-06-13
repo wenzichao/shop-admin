@@ -57,6 +57,9 @@ export default {
             }).then(res=>{
               // console.log(res.data);
               const {message,status} = res.data
+              // 将登陆信息存储到仓库中
+              this.$store.commit('getUser',message)
+              
               if(status==0){
                 this.$router.push('/?realname='+message.realname)
               }

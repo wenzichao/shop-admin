@@ -123,14 +123,14 @@ export default {
     },
     methods: {
         onSubmit() {
-            console.log(this.form);
+            // console.log(this.form);
             this.$axios({
                 url:'http://localhost:8899/admin/goods/add/goods',
                 method:'POST',
                 data:this.form,
                 withCredentials: true
             }).then(res=>{
-                console.log(res.data);
+                // console.log(res.data);
                 const {status,message} = res.data
                 if(status==0){
                     this.$message.success(message)

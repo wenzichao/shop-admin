@@ -16,6 +16,8 @@ import Member from './page/Member.vue'
 import OrderList from './page/OrderList.vue'
 import GoodsAdd from './page/GoodsAdd.vue'
 import GoodsEdit from './page/GoodsEdit.vue'
+// 引入仓库
+import store from './store'
 
 //注册饿了么UI
 Vue.use(ElementUI)
@@ -42,7 +44,33 @@ const routes = [
 
 const router = new VueRouter({ routes });
 
+router.beforeEach((to,form,next)=>{
+  axios({
+    url:' http://localhost:8899/admin/account/islogin',
+    method:'GEt',
+    withCredentials: true,
+  }).then(res=>{
+    // console.log(res.data);
+    const {code} = res.data
+    if(to.path == '/login'){
+      if(code=='logined'){
+        next('/admin/goods-list')
+      }else{
+        next()
+      }
+    }else{
+      if(code=='logined'){
+        next()
+      }else{
+        next('/login')
+      }
+    }
+  })
+})
+
 new Vue({
   router,
+  // 调用仓库
+  store,
   render: h => h(App)
 }).$mount('#app')

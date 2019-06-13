@@ -24,4 +24,7 @@ export default {
     display: block;
     text-decoration: none;
   }
+  img{
+    object-fit: cover;
+  }
 </style>
